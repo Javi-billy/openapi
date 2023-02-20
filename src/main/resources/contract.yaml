@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: Prueba - OpenAPI 3.0
+  description: |-
+    Prueba API Spec
+  version: 1.0.0
+servers:
+  - url: api/v1
+paths:
+  /price:
+    get:
+      tags:
+        - price
+      summary: Get filter prices
+      description: Get filter prices
+      operationId: getFilterPrices
+      parameters:
+        - name: startDate
+          in: query
+          description: startDate
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: '2020-06-14T10:00:00.000Z'
+        - name: productId
+          in: query
+          description: product
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: brandId
+          in: query
+          description: brand
+          required: true
+          schema:
+            type: string            
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceResult'          
+        '400':
+          description: Invalid request
+components:
+  schemas:
+    PriceResult:
+      type: object
+      properties:
+        brandId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        priceList:
+          type: integer
+          format: int 
+        productId:
+          type: integer
+          format: int 
+        price:
+          type: number
+          format: double
